@@ -5,9 +5,9 @@
 ![Python](https://img.shields.io/badge/Python-3.7+-blue)
 
 An end-to-end Convolutional Neural Network (CNN) for detecting manufacturing defects in industrial casting products with high accuracy.
+(https://i.imgur.com/gU89aB1.png)
 
-![Sample Images](![Uploading image.png…]()
-)
+
 *Left: Defective sample (def_front) | Right: OK sample (ok_front)*
 
 ## 📋 Table of Contents
