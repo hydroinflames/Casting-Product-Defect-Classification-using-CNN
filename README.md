@@ -9,7 +9,6 @@ Bu proje, endüstriyel döküm ürünlerinin görüntülerinden üretim hatalar�
 
 ## 🚀 Projenin Öne Çıkan Özellikleri
 
-- **Uçtan Uca Yapı:** Veri setinin indirilmesinden modelin nihai değerlendirmesine kadar tüm süreç tek bir script içerisinde yönetilmektedir.
 - **Veri Artırma (Data Augmentation):** Modelin genelleme yeteneğini artırmak ve aşırı öğrenmeyi (overfitting) önlemek için `ImageDataGenerator` kullanılarak anlık olarak (on-the-fly) veri artırma teknikleri (döndürme, kaydırma, yakınlaştırma vb.) uygulanmıştır.
 - **Modern CNN Mimarisi:** Model, `BatchNormalization` katmanları ile stabilize edilmiş, `GELU` gibi modern aktivasyon fonksiyonları ve `Dropout` ile regularizasyon sağlanmış derin bir CNN mimarisine sahiptir.
 - **Sağlam Eğitim Süreci (Robust Training):**
