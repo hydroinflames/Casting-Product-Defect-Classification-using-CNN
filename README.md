@@ -1,84 +1,98 @@
-# Casting-Product-Defect-Classification-using-CNN
+# Casting Product Defect Classification using CNN
 
-# End-to-End CNN for Industrial Casting Defect Detection
+![GitHub](https://img.shields.io/github/license/hydroinflames/Casting-Product-Defect-Classification-using-CNN)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange)
+![Python](https://img.shields.io/badge/Python-3.7+-blue)
 
-Bu proje, endüstriyel döküm ürünlerinin görüntülerinden üretim hatalarını tespit etmek amacıyla geliştirilmiş, uçtan uca bir Evrişimli Sinir Ağı (CNN) modelini içermektedir. Proje, veri ön işleme, model oluşturma, eğitme ve değerlendirme adımlarını kapsayan sağlam ve yeniden üretilebilir bir yapı sunar.
+An end-to-end Convolutional Neural Network (CNN) for detecting manufacturing defects in industrial casting products with high accuracy.
 
 ![Sample Images](https://i.imgur.com/gU89aB1.png)
-*Solda: Hatalı (def_front) | Sağda: Sağlam (ok_front)*
+*Left: Defective sample (def_front) | Right: OK sample (ok_front)*
 
-## 🚀 Projenin Öne Çıkan Özellikleri
+## 📋 Table of Contents
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Dataset](#dataset)
+- [Model Architecture](#model-architecture)
+- [Results](#results)
+- [Installation and Usage](#installation-and-usage)
+- [Future Improvements](#future-improvements)
+- [License](#license)
 
-- **Veri Artırma (Data Augmentation):** Modelin genelleme yeteneğini artırmak ve aşırı öğrenmeyi (overfitting) önlemek için `ImageDataGenerator` kullanılarak anlık olarak (on-the-fly) veri artırma teknikleri (döndürme, kaydırma, yakınlaştırma vb.) uygulanmıştır.
-- **Modern CNN Mimarisi:** Model, `BatchNormalization` katmanları ile stabilize edilmiş, `GELU` gibi modern aktivasyon fonksiyonları ve `Dropout` ile regularizasyon sağlanmış derin bir CNN mimarisine sahiptir.
-- **Sağlam Eğitim Süreci (Robust Training):**
-  - **AdamW Optimizer:** Ağırlık bozunması (weight decay) ile regularizasyonu iyileştiren AdamW optimize edici kullanılmıştır.
-  - **Callback'ler:** `EarlyStopping` ile gereksiz eğitim önlenmiş, `ReduceLROnPlateau` ile öğrenme oranı dinamik olarak ayarlanmış ve `ModelCheckpoint` ile en iyi model kaydedilmiştir.
-- **Kapsamlı Değerlendirme:** Model performansı; doğruluk/kayıp grafikleri, karmaşıklık matrisi (confusion matrix), sınıflandırma raporu (classification report) ve ROC/AUC eğrisi gibi metriklerle detaylı bir şekilde analiz edilmiştir.
-- **Yeniden Üretilebilirlik (Reproducibility):** Projenin farklı sistemlerde aynı sonuçları vermesi için `random`, `numpy` ve `tensorflow` kütüphanelerinde tohum (seed) değerleri sabitlenmiştir.
+## 🔍 Overview
 
-## 💾 Veri Seti
+This project implements a deep learning solution for automated quality control in manufacturing. Using a custom CNN architecture, the model can classify casting products as defective or non-defective based on their surface images. The solution achieves over 99% accuracy, making it viable for real-world industrial applications.
 
-Bu projede, Kaggle üzerinde bulunan **"Real-Life Industrial Dataset of Casting Product"** veri seti kullanılmıştır. Veri seti, 'def_front' (hatalı) ve 'ok_front' (sağlam) olmak üzere iki sınıfa ayrılmış döküm ürün görselleri içermektedir.
+## ✨ Key Features
 
-- **Veri Seti Linki:** [Kaggle Dataset](https://www.kaggle.com/datasets/ravirajsinh45/real-life-industrial-dataset-of-casting-product)
+- **Data Augmentation Pipeline**: Enhances model generalization through on-the-fly image transformations using `ImageDataGenerator` (rotation, zoom, shift, flip)
+- **Modern CNN Architecture**: Deep network with BatchNormalization, GELU activation functions, and Dropout for regularization
+- **Robust Training Process**:
+  - **AdamW Optimizer**: Improved regularization with weight decay
+  - **Strategic Callbacks**: EarlyStopping to prevent overfitting, ReduceLROnPlateau for dynamic learning rate adjustment, and ModelCheckpoint to save the best model
+- **Comprehensive Evaluation**: Performance assessed through accuracy/loss plots, confusion matrix, classification report, and ROC/AUC curve
+- **Reproducibility**: Fixed random seeds in `random`, `numpy`, and `tensorflow` libraries for consistent results across different systems
 
-## 🛠️ Kurulum ve Kullanım
+## 💾 Dataset
 
-Projeyi yerel makinenizde çalıştırmak için aşağıdaki adımları izleyin.
+The model is trained on the "Real-Life Industrial Dataset of Casting Product" from Kaggle, which contains images of real industrial casting components:
 
-1.  **Depoyu Klonlayın:**
-    ```bash
-    git clone [https://github.com/KULLANICI_ADINIZ/PROJE_ADINIZ.git](https://github.com/KULLANICI_ADINIZ/PROJE_ADINIZ.git)
-    cd PROJE_ADINIZ
-    ```
+- Two classes: 'def_front' (defective) and 'ok_front' (non-defective)
+- Grayscale images showing the surface of casting products
+- Dataset Link: [Kaggle Dataset](https://www.kaggle.com/datasets/ravirajsinh45/real-life-industrial-dataset-of-casting-product)
 
-2.  **Gerekli Kütüphaneleri Yükleyin:**
-    Proje için gerekli kütüphaneleri `requirements.txt` dosyasından yükleyebilirsiniz.
-    ```bash
-    pip install -r requirements.txt
-    ```
-    *Eğer bir `requirements.txt` dosyanız yoksa, şu komutlarla temel kütüphaneleri kurabilirsiniz:*
-    ```bash
-    pip install tensorflow numpy matplotlib seaborn scikit-learn opendatasets
-    ```
+## 🏗️ Model Architecture
 
-3.  **Kaggle API Kimlik Bilgilerini Ayarlayın:**
-    `opendatasets` kütüphanesinin veri setini indirebilmesi için Kaggle kullanıcı adınıza ve API anahtarınıza ihtiyacı olacaktır. Scripti çalıştırdığınızda sizden bu bilgileri girmeniz istenecektir.
+The implemented CNN architecture follows a progressive structure:
 
-4.  **Script'i Çalıştırın:**
-    Tüm kurulum tamamlandıktan sonra ana Python script'ini çalıştırın.
-    ```bash
-    python ai_studio_code.py
-    ```
-    Script, veri setini otomatik olarak indirecek, modeli eğitecek, sonuçları ve grafikleri üretecektir.
+```
+Input → Conv2D → BatchNorm → GELU → MaxPooling → 
+       → Conv2D → BatchNorm → GELU → MaxPooling → 
+       → ... 
+       → Flatten → Dense → BatchNorm → GELU → Dropout → 
+       → Dense → BatchNorm → GELU → Dropout → 
+       → Output (Dense, sigmoid)
+```
 
-## 📊 Sonuçlar ve Değerlendirme
+Key components:
+- Multiple convolutional blocks with increasing filter counts
+- Batch normalization after each convolutional and dense layer
+- GELU activation functions for improved gradient flow
+- Dropout layers for regularization in the fully connected sections
+- Binary classification output with sigmoid activation
 
-Model, test veri seti üzerinde **~%99**'un üzerinde bir doğruluk oranı elde etmiştir. Eğitim süreci boyunca elde edilen doğruluk ve kayıp grafikleri aşağıda gösterilmiştir.
+## 📊 Results
 
-*(Buraya `plt.show()` ile ürettiğiniz grafikleri ekran görüntüsü alıp ekleyebilirsiniz.)*
+The model achieves exceptional performance on the test dataset:
 
-**Eğitim ve Doğrulama Grafikleri**
-![Training Curves](https://i.imgur.com/your_training_plot_url.png)
+- **Accuracy**: >99%
+- **Precision & Recall**: High values for both defective and non-defective classes
+- **F1-Score**: Nearly perfect balance between precision and recall
 
-**Karmaşıklık Matrisi (Confusion Matrix)**
-![Confusion Matrix](https://i.imgur.com/your_confusion_matrix_url.png)
+*Note: Add your training curve, confusion matrix, and ROC curve images here after generating them.*
 
-**ROC Eğrisi**
-![ROC Curve](https://i.imgur.com/your_roc_curve_url.png)
+<!-- Example placeholder for visualization images:
+**Training and Validation Curves**
+![Training Curves](path_to_your_training_plot.png)
 
-Sınıflandırma raporu, modelin her iki sınıfı da (hatalı ve sağlam) yüksek F1-skoru ile başarıyla tespit ettiğini göstermektedir.
+**Confusion Matrix**
+![Confusion Matrix](path_to_your_confusion_matrix.png)
 
-## 💡 Gelecek Geliştirmeler
+**ROC Curve**
+![ROC Curve](path_to_your_roc_curve.png)
+-->
 
-Bu projenin potansiyelini daha da ileri taşımak için aşağıdaki adımlar atılabilir:
 
-- **Transfer Learning:** `ResNet50`, `EfficientNet` gibi önceden eğitilmiş modeller kullanarak daha yüksek doğruluk oranları hedeflenebilir.
-- **Gelişmiş Veri Artırma:** `CutMix` ve `Mixup` gibi daha karmaşık veri artırma teknikleri denenebilir.
-- **Hiperparametre Optimizasyonu:** `KerasTuner` veya `Optuna` gibi kütüphanelerle en iyi hiperparametre setini bulmak için otomatik optimizasyon yapılabilir.
-- **Model Dağıtımı (Deployment):** Eğitilmiş model, `TensorFlow Serving`, `Flask` veya `FastAPI` kullanılarak bir web servisi haline getirilebilir.
+## 💡 Future Improvements
 
-## 📄 Lisans
+Potential enhancements for this project:
 
-Bu proje MIT Lisansı altında lisanslanmıştır. Detaylar için `LICENSE` dosyasına bakınız.
+- **Transfer Learning**: Leverage pre-trained models like ResNet50 or EfficientNet for potentially higher accuracy
+- **Advanced Data Augmentation**: Experiment with more sophisticated techniques like CutMix and Mixup
+- **Hyperparameter Optimization**: Use KerasTuner or Optuna for automated hyperparameter tuning
+- **Model Deployment**: Serve the model using TensorFlow Serving, Flask, or FastAPI for real-time inference
+- **Explainable AI**: Implement GradCAM or similar techniques to visualize which parts of the images contribute most to the classification decision
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
