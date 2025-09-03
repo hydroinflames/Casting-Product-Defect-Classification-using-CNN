@@ -1,17 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Casting Defect Classification — A Robust & Shareable Script
-
-This script builds, trains, and evaluates a CNN model for classifying casting defects.
-Key features include:
-- Clear, sectioned workflow from data loading to evaluation.
-- Reproducibility with set random seeds.
-- On-the-fly data augmentation to prevent overfitting.
-- AdamW optimizer and modern activation functions (GELU).
-- Robust training loop with callbacks like EarlyStopping and ModelCheckpoint.
-- Comprehensive evaluation including a confusion matrix, classification report, and ROC/AUC curve.
-- Ready for professional sharing on platforms like GitHub and LinkedIn.
-"""
 
 # ========================= 0. Imports & Seeds =========================
 import os
@@ -45,7 +31,7 @@ tf.random.set_seed(SEED)
 # Download the dataset from Kaggle
 dataset_url = 'https://www.kaggle.com/datasets/ravirajsinh45/real-life-industrial-dataset-of-casting-product'
 print(f"Downloading dataset from: '{dataset_url}'...")
-od.download(dataset_url, force=True) # Use force=True to overwrite if it exists
+od.download(dataset_url, force=True) 
 print("Dataset downloaded successfully.")
 
 # Define paths
@@ -278,11 +264,3 @@ plt.grid(True)
 plt.show()
 
 print(f"AUC Score: {roc_auc:.4f}")
-
-# ========================= 7. Further Improvement Tips =========================
-print("\n--- Tips for Further Improvement ---")
-print("- Experiment with different CNN architectures (e.g., ResNet, EfficientNet via transfer learning).")
-print("- Fine-tune hyperparameters like learning rate, batch size, and optimizer settings.")
-print("- If class imbalance exists, consider using class weights during training.")
-print("- Explore more advanced data augmentation techniques (e.g., CutMix, Mixup).")
-print("- For very large datasets, optimize the input pipeline with tf.data and prefetching.")
